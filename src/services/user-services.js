@@ -1,54 +1,41 @@
-const bcryptjs = require('bcryptjs');
-const User = require('../models/user');
+const build = require('../build/action-build');
 
 const getUsers = async () => {
-    return user = await User.findAll({
-        where: { status: true },
-        attributes: ['name', 'email']
-    });
+    const user = await build.findAll();
+    return user;
 };
 
 const getUser = async ( id ) => {
-    return user = await User.findByPk(id);
+    const user = await build.findOne(id);
+    return user;
 };
 
 const createUser = async ( body ) => {
-    const user = await User.create(
-        {
-            name: body.name,
-            email: body.email,
-            password: body.password
-        }
-    );
-
-    const salt = bcryptjs.genSaltSync(10);
-    user.password = bcryptjs.hashSync(body.password, salt);
-    await user.save();
+    const user = await build.create(body);
     return user;
 };
 
 const updateUser = async ( id, body ) => {
 
-    if (body.password) {
-        const salt = bcryptjs.genSaltSync(10);
-        data.password = bcryptjs.hashSync(body.password, salt);
-    };
+    const user = await build.findOne(id);
 
-    const data = await User.findByPk(id);
-    data.name = body.name;
-    data.password = body.password;
-    data.email = body.email;
-    data.status = body.status;
+    // CUANDO NO EXISTE EL USUARIO NO RETORNA, SIGUE LA SIGUIENTE INSTRUCCION
+    if (!user) return res.status(500).send({ status: 500, message: 'User does no exist' });
 
-    await data.save();
-    return data;
+    const userUpdate = await build.update(user, body);
+    return userUpdate;
 };
 
 const deleteUser = async ( id ) => {
-    const deleteuser = await User.findByPk(id);
-    deleteuser.status = false;
-    await deleteuser.save();
-    return deleteuser;
+    const user = await build.findOne(id);
+
+    // CUANDO NO EXISTE EL USUARIO NO RETORNA, SIGUE LA SIGUIENTE INSTRUCCION
+    if( !user ) return res.status(500).send({ status: 500, message: 'User does no exist' });
+
+    // SI EXISTE EL USUARIO CAMBIA EL ESTADO A FALSE Y RETORNA BIEN
+    user.status = false;
+    await user.save();
+    return user;
 };
 
 module.exports = {
@@ -56,5 +43,5 @@ module.exports = {
     getUser,
     createUser,
     updateUser,
-    deleteUser
+    deleteUser,
 };

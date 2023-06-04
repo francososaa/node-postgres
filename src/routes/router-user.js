@@ -7,7 +7,7 @@ const user = require('../controllers/user-controller');
 
 //PATH
 router.get('/users/', validarJWT, user.list);
-router.post('/user/create', validarJWT, user.create);
+router.post('/user/create', validarJWT , user.create);
 router.get('/user/:id/detail',validarJWT, user.retrieve);
 router.put('/user/:id/update', validarJWT, user.update);
 router.delete('/user/:id/delete', validarJWT, user.deleteU);
