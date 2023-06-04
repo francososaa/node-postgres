@@ -1,0 +1,18 @@
+version: '3.8'  
+services:  
+  db:  # Creamos el servicios mydb para identificar la imagen
+    container_name: postgres_node_container  
+    image: postgres  # Usamos la imagen postgresql en la ultima version
+    volumes:
+       - postgres-node-db:/var/lib/postgresql  # Crearemos un volumen para almacenar los datos de la db
+    restart: always  
+    environment:  # Creamos las variables del usuario contraseña y base de datos
+      POSTGRES_USER: root  
+      POSTGRES_PASSWORD: root  
+      POSTGRES_DB: postgres-node  
+    ports:  
+      - "8081:5432"  # Habilitamos el puerto 5432 para acceder a la db
+      
+volumes:                                # Creamos y asignamos el volumen de docker
+  postgres-node-db:
+    driver: local
