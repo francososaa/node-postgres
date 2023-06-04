@@ -14,6 +14,8 @@ app.use(express.json());
 app.use(express.static('public'));
 
 // Routes
+app.use(require('./src/routes/auth'));
+app.use(require('./src/routes/router-user'));
 
 //DB
 ( async () => { await sequelize.sync({ force: false }); })();
