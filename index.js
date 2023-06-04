@@ -1,5 +1,5 @@
 require('dotenv').config();
-require('./src/models/user');
+require('./src/models/index');
 const express = require('express');
 const cors = require('cors');
 const sequelize  = require('./src/db/database');
@@ -16,7 +16,7 @@ app.use(express.static('public'));
 // Routes
 
 //DB
-( async () => { await sequelize.sync({ force: true }); })();
+( async () => { await sequelize.sync({ force: false }); })();
 
 sequelize.authenticate()
     .then(() => { console.log(('Connected to database successfully'));})
