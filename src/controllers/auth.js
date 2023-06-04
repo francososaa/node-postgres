@@ -21,4 +21,6 @@ const login = async ( req, res ) => {
     } catch (error){ res.status(500).send( { status: 500, message: 'Talk to the administrator' } ); }
 }
 
-module.exports = login;
+module.exports = {
+    login
+};
