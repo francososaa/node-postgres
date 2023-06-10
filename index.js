@@ -15,6 +15,9 @@ app.use(express.static('public'));
 
 // Routes
 app.use(require('./src/routes/auth'));
+app.use(require('./src/routes/router-student'));
+app.use(require('./src/routes/router-subject'));
+app.use(require('./src/routes/router-teacher'));
 app.use(require('./src/routes/router-user'));
 
 //DB
