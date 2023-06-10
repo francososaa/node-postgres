@@ -7,10 +7,10 @@ const teacher = require('../controllers/teacher-controller');
 
 //PATH
 router.get('/teacher', validarJWT,  teacher.list);
-router.get('/teacher/:id', validarJWT, teacher.retrieve);
 router.post('/teacher', validarJWT,  teacher.create);
-router.put('/teacher/:id', validarJWT,  teacher.update);
-router.delete('/teacher/:id', validarJWT,  teacher.deleteT);
+router.get('/teacher/:id/detail', validarJWT, teacher.retrieve);
+router.put('/teacher/:id/update', validarJWT,  teacher.update);
+router.delete('/teacher/:id/delete', validarJWT,  teacher.deleteT);
 
 
 module.exports = router;
