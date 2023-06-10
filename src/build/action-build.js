@@ -1,18 +1,20 @@
 const bcryptjs = require('bcryptjs');
 const User = require('../models/user');
 
+
 const findOne = async ( id ) => {
-    const data = await User.findByPk(id);
-    return data;
+    const user = await User.findByPk(id);
+    return user;
 };
 
 const findAll = async () => {
-    const data = await User.findAll({
+    const user = await User.findAll({
         where: { status: true },
         attributes: ['name', 'email']
     });
-    return data;
+    return user;
 };
+
 
 const create = async ( body ) => {
     const user = await User.create(
